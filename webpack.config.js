@@ -12,7 +12,7 @@ module.exports = {
             },
         ],
     },
-      optimization: {
+    optimization: {
         minimizer: [
           new ImageMinimizerPlugin({
             minimizer: {
