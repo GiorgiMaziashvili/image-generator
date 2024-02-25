@@ -10,6 +10,23 @@ module.exports = {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 type: "asset",
             },
+            {
+                test: /\.json$/,
+                loader: 'json-loader',
+                type: 'javascript/auto',
+              },
+              {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: 'images/', 
+                    },
+                  },
+                ],
+            },
         ],
     },
     optimization: {
@@ -33,6 +50,7 @@ module.exports = {
         new CopyPlugin({
           patterns: [
             { from: "./src/assets/images", to: "images" },
+            { from: 'src/spritesheets', to: 'spritesheets' },
           ],
         }),
     ],

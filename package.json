@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack",
+    "start": "webpack && node spritesheet.js",
     "start:server": "webpack serve --config webpack.config.js --open"
   },
   "author": "",
@@ -20,5 +20,8 @@
     "imagemin-pngquant": "^9.0.2",
     "imagemin-svgo": "^10.0.1",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "spritesmith": "^3.4.1"
   }
 }
