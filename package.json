@@ -5,7 +5,9 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack && node spritesheet.js",
+    "start": "webpack",
+    "start:sprites": "node spritesheet.js",
+    "start:all": "node spritesheet.js && webpack",
     "start:server": "webpack serve --config webpack.config.js --open"
   },
   "author": "",

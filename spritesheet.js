@@ -23,18 +23,50 @@ fs.readdir(sourcePath, (err, files) => {
           console.error('Error generating spritesheet:', err);
           return;
         }
-        
+
         const spritesheetPath = path.join(outputDir, `${folder}.png`);
         const jsonPath = path.join(outputDir, `${folder}.json`);
 
-        const coordinates = {};
+        const frames = {};
         Object.keys(result.coordinates).forEach(imagePath => {
-          const baseName = path.basename(imagePath, path.extname(imagePath));
-          coordinates[baseName] = result.coordinates[imagePath];
+          const baseName = path.basename(imagePath, path.extname(imagePath)); 
+          frames[baseName] = {
+            frame: {
+              x: result.coordinates[imagePath].x,
+              y: result.coordinates[imagePath].y,
+              w: result.coordinates[imagePath].width,
+              h: result.coordinates[imagePath].height
+            },
+            rotated: false,
+            trimmed: false,
+            spriteSourceSize: {
+              x: 0,
+              y: 0,
+              w: result.coordinates[imagePath].width,
+              h: result.coordinates[imagePath].height
+            },
+            sourceSize: {
+              w: result.coordinates[imagePath].width,
+              h: result.coordinates[imagePath].height
+            }
+          };
         });
 
+        const meta = {
+          image: `${folder}.png`,
+          size: {
+            w: result.properties.width,
+            h: result.properties.height
+          }
+        };
+
+        const jsonData = {
+          frames: frames,
+          meta: meta
+        };
+
+        fs.writeFileSync(jsonPath, JSON.stringify(jsonData));
         fs.writeFileSync(spritesheetPath, result.image);
-        fs.writeFileSync(jsonPath, JSON.stringify(coordinates));
       });
     }
   });
